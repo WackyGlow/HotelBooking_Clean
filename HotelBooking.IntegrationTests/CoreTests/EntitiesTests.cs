@@ -1,3 +1,5 @@
+using Moq;
+
 namespace HotelBooking.IntegrationTests.CoreTests;
 using System;
 using HotelBooking.Core;
@@ -90,6 +92,7 @@ public class EntitiesTests
     {
         // Arrange
         var booking = new Booking();
+        booking.Customer = new Customer(); // Initialize Customer property
 
         // Act
 
@@ -101,7 +104,8 @@ public class EntitiesTests
     public void Booking_RoomPropertyNotNull()
     {
         // Arrange
-        var booking = new Booking();
+        var mockRoom = new Mock<Room>();
+        var booking = new Booking { Room = mockRoom.Object };
 
         // Act
 
