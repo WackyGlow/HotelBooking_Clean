@@ -61,12 +61,7 @@ public class ServiceTests
 
         roomRepositoryMock.Setup(repo => repo.GetAll()).Returns(availableRooms);
         bookingRepositoryMock.Setup(repo => repo.GetAll()).Returns(existingBookings);
-
-        if (expectedResult)
-        {
-            bookingRepositoryMock.Setup(repo => repo.Add(booking));
-        }
-
+        
         // Act
         var result = bookingManager.CreateBooking(booking);
 
@@ -76,6 +71,11 @@ public class ServiceTests
         {
             bookingRepositoryMock.Verify(repo => repo.Add(booking), Times.Once);
         }
+        else
+        {
+            bookingRepositoryMock.Verify(repo => repo.Add(booking), Times.Never);
+        }
+        
     }
 
 }
